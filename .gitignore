@@ -1,2 +1,3 @@
 data/*
 !data/README.txt
+.Rproj.user

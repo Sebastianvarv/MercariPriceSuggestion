@@ -9,3 +9,5 @@ the number of items sold. Finding the optimal price point helps to attract more 
 and to boost the volumes in selling 
 
 Link to competition on Kaggle: https://www.kaggle.com/c/mercari-price-suggestion-challenge
+
+Initial project plan: https://docs.google.com/document/d/19VuXR2t3rvX2u2w3qvURqzV6gWNLXw5yvnVxeiw8TEE/edit?usp=sharing

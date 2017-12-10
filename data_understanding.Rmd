@@ -1,0 +1,112 @@
+---
+title: "Data Understanding for Mercari Price Suggestion"
+author: "Markus Loide"
+date: "10 detsember 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(dplyr)
+library(ggplot2)
+```
+
+# Reading the data
+
+```{r}
+train_data <- fread("data/train.tsv", na.strings="")
+```
+
+```{r, echo=FALSE, eval=FALSE}
+train_data
+```
+
+```{r}
+colnames(train_data)
+```
+
+Amount of rows in the training dataset
+
+```{r}
+nrow(train_data)
+```
+
+```{r}
+str(train_data)
+```
+
+
+## Name
+
+Number of different names in the dataset 
+
+```{r}
+length(unique(train_data$name))
+```
+
+## Item condition
+
+Different values for condition
+
+```{r}
+length(unique(train_data$item_condition_id))
+```
+
+Distribution of item conditions:
+
+```{r}
+ggplot(train_data, aes(x = item_condition_id)) + geom_bar()
+```
+
+The distributions for the different values of item condition are heavily skewed towards to lower numbers. As such, it might be necessary to use sampling.
+
+## Item category
+
+```{r}
+length(unique(train_data$category_name))
+```
+
+```{r}
+ggplot(train_data, aes(x = category_name)) + geom_bar()
+```
+
+As with the last one, here some categories are represented very little. A solution for this can also be found with sampling.
+
+
+## Brand name
+
+```{r}
+length(unique(train_data$brand_name))
+```
+
+## Shipping info
+
+```{r}
+train_data$shipping <- as.factor(train_data$shipping)
+```
+
+```{r}
+ggplot(train_data, aes(x = shipping)) + geom_bar()
+```
+
+Pretty equal - good.
+
+## Item description
+
+Written in free form, no use even trying to see how many are different.
+
+## Price
+
+```{r}
+max(train_data$price)
+min(train_data$price)
+```
+
+
+
+```{r}
+ggplot(train_data, aes(x = price)) + geom_bar()
+```
+
+Also a case for sampling perhaps.

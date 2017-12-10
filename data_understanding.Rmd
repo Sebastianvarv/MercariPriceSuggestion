@@ -45,6 +45,12 @@ Number of different names in the dataset
 length(unique(train_data$name))
 ```
 
+Number of missing values
+
+```{r}
+length(train_data[is.na(train_data$name), ])
+```
+
 ## Item condition
 
 Different values for condition
@@ -53,7 +59,13 @@ Different values for condition
 length(unique(train_data$item_condition_id))
 ```
 
-Distribution of item conditions:
+Missing values
+
+```{r}
+nrow(train_data[is.na(train_data$item_condition_id), ])
+```
+
+Distribution of item conditions
 
 ```{r}
 ggplot(train_data, aes(x = item_condition_id)) + geom_bar()
@@ -63,9 +75,19 @@ The distributions for the different values of item condition are heavily skewed 
 
 ## Item category
 
+Unique values
+
 ```{r}
 length(unique(train_data$category_name))
 ```
+
+Missing values
+
+```{r}
+nrow(train_data[is.na(train_data$category_name), ])
+```
+
+Distribution
 
 ```{r}
 ggplot(train_data, aes(x = category_name)) + geom_bar()
@@ -78,6 +100,18 @@ As with the last one, here some categories are represented very little. A soluti
 
 ```{r}
 length(unique(train_data$brand_name))
+```
+
+```{r}
+nrow(train_data[is.na(train_data$brand_name), ])
+```
+
+Average price depending whether or not brand name exists
+
+```{r}
+train_data %>%
+  group_by(is.na(brand_name)) %>%
+  summarise(average_price = mean(price), average_price_stdev = sd(price), max_price = max(price), min_price = min(price))
 ```
 
 ## Shipping info
@@ -101,6 +135,7 @@ Written in free form, no use even trying to see how many are different.
 ```{r}
 max(train_data$price)
 min(train_data$price)
+mean(train_data$price)
 ```
 
 

@@ -40,7 +40,9 @@ def preprocess_and_extract(dataset):
     default_preprocessor = CountVectorizer().build_preprocessor()
     def build_preprocessor(field):
         field_idx = list(dataset.columns).index(field)
-        return lambda x: default_preprocessor(x[field_idx])
+        # This string casting here is a bad idea, but for the time being produces a working thing.
+        # Vectorizers need to be thought through so test set can be used with the train fitted vectorizer.
+        return lambda x: default_preprocessor(str(x[field_idx]))
 
     vectorizer = FeatureUnion([
         ('name', CountVectorizer(
